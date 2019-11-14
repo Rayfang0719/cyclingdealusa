@@ -1,0 +1,57 @@
+<div class="newsletter">
+    <div class="newsletter__wrapper">
+        <div class="section-header">
+            <img src="https://www.cyclingdeal.com.au/assets/images/icon_newsletter.png" alt="products">
+            <span style="vertical-align: middle;">{{- section.settings.section_title -}}</span>
+        </div>
+        {% form 'customer' %}
+            {%- if form.posted_successfully? or form.errors contains 'email'  -%}
+        <div style="text-align: center;padding-top: 32px;">
+            {%- if form.posted_successfully? -%}
+                <p class="form-message form-message--success" tabindex="-1" data-form-status style="color:green;">
+                    Subscribe Successful!
+                </p>
+            {%- endif -%}
+            {% if form.errors contains 'email' %}
+                <span id="{{ formId }}-email-error" class="input-error-message" style="color:red;">
+                         {{ form.errors.translated_fields['email'] | capitalize }} {{ form.errors.messages['email'] }}.
+                </span>
+            {% endif %}
+        </div>
+            {% endif %}
+        <div class="section-body pure-g" style="padding: 32px;">
+            <div class="pure-u-1 pure-u-md-2-3">
+                <div class="newsletter__text">{{- section.settings.subscribe_text -}}</div>
+            </div>
+            <div class="pure-u-1 pure-u-md-1-3">
+
+                    <input type="hidden" name="contact[tags]" value="newsletter">
+                    <input type="email" name="contact[email]" style="width:100%; box-sizing: border-box;height:32px;border:1px solid #ccc;">
+                    <button type="submit" style="display: block;width:100%;background:#f6b800;border:1px solid #F6B800;color: #333;height: 32px; ">Subscribe Now</button>
+
+            </div>
+        </div>
+        {% endform %}
+    </div>
+</div>
+
+{%- schema -%}
+    {
+    "name": "Newsletter",
+
+    "settings": [
+        {
+        "type": "text",
+        "id": "section_title",
+        "label": "Section Title",
+        "default": "Newsletter"
+        },
+        {
+        "type": "text",
+        "id": "subscribe_text",
+        "label": "Subscribe Text",
+        "default": "Subscribe To Our Newsletter and Get The Latest Deal,Straight to Your Inbox!"
+        }
+    ]
+    }
+{% endschema %}

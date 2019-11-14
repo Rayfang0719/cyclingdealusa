@@ -1,0 +1,21 @@
+.top-bar__wrapper {
+  height: 29px;
+  line-height: 29px;
+  background: #F6B800;
+}
+
+.top-bar__phone{
+  float:right;
+  color:#F6B800;
+  background:#000;
+  font-weight:700;
+  padding-right: 20px;
+  padding-left: 120px;
+}
+
+@media (max-width: 47.999em) {
+  .top-bar__phone{
+    padding-right: 12px;
+    padding-left: 12px;
+  }
+}

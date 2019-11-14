@@ -1,0 +1,152 @@
+<style>
+
+        .home-featured-video-thumb .slick-track .slick-slide {
+            padding: 10px 40px 10px 0;
+            border-bottom: 1px solid #eeeeee;
+
+        }
+
+        .home-featured-video-thumb .slick-prev:before {
+            content: url("{{ 'up-arrow.png' | asset_url }}");
+        }
+
+        .home-featured-video-thumb .slick-next:before {
+            content: url("{{ 'down-arrow.png' | asset_url }}");
+        }
+
+        .home-featured-video-thumb .slick-prev {
+            right: 0;
+            top: 30px;
+            width: 40px;
+            height: 40px;
+            background-color: #F6B800;
+            left: auto;
+            z-index: 2;
+        }
+
+        .home-featured-video-thumb .slick-next {
+            right: 0;
+            bottom: -30px;
+            top: auto;
+            width: 40px;
+            height: 40px;
+            background-color: #F6B800;
+        }
+
+        .home-featured-video {
+            padding: 0 20px 20px 20px;
+        }
+
+        .home-featured-video-thumb {
+            padding-right: 20px;
+
+        }
+        .videolist{
+        height: 383px;
+        position:relative;
+        overflow:hidden;
+
+        }
+        .controller{
+            position:absolute;
+            right:0px;
+            width:30px;
+            height:27px;
+          
+            
+        }
+   @media (min-width: 768px){
+           .up-control {
+            background-image: url(https://www.cyclingdeal.com.au/assets/images/up-arrow.png);
+            background-repeat: no-repeat;
+            background-color: #F6B800;
+            top:25px;
+                        }
+            .down-control{
+            bottom:20px;
+            background: url(https://www.cyclingdeal.com.au/assets/images/down-arrow.png);
+            background-repeat: no-repeat;
+            background-color: #F6B800;
+
+        }
+   }
+   .videotitle-wrapper{
+       position:absolute;
+   }
+       .videolist li{
+            list-style:none;
+            width: 100%;
+    height: 120px;
+    padding: 24px 32px;
+    text-align: left;
+        }
+        .video{
+            width: 632px;
+            height: 383px;
+            margin-left: 52px;
+        }
+        .videolist img{
+    width:68px;
+}
+
+</style>
+<div class="featured-video">
+    <div class="featured-video__wrapper">
+        <div class="section-header">
+            <img src="https://www.cyclingdeal.com.au/assets/images/icon_video.png" alt="products"><span
+                    style="vertical-align: middle;">{{- section.settings.section_title -}}</span>
+        </div>
+        <div class="pure-g section-body">
+            <div class="pure-u-1 pure-u-md-2-3 ">
+             	<iframe class="video" src="https://www.youtube.com/embed/DY-ueshKaHc?rel=0" frameborder="0"
+			allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+            <div class="pure-u-1 pure-u-md-1-3">
+                <ul class="videolist">
+         
+<div class="up-control controller"></div>
+
+<div class="down-control controller"></div>
+ 
+</ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+{%- schema -%}
+    {
+    "name": "Featured Video",
+    "max_blocks": 15,
+    "settings": [
+        {
+        "type": "text",
+        "id": "section_title",
+        "label": "Section Title",
+        "default": "VIDEOS"
+        }
+    ],
+    "blocks": [
+        {
+            "type": "video_item",
+            "name": "Video Item",
+            "settings": [
+                {
+                "id": "video_item",
+                "type": "video_url",
+                "label": "Video URL",
+                "accept": ["youtube", "vimeo"],
+                "default": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
+                "info": "Text",
+                "placeholder": "Text"
+                },
+                {
+                "type": "text",
+                "id": "video_title",
+                "label": "Video Title"
+                }
+            ]
+        }
+    ]
+    }
+{% endschema %}

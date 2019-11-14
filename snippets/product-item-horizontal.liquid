@@ -1,0 +1,18 @@
+<div class="product-item product-item__horizontal" style="border-bottom: 1px solid #ddd;padding:10px 15px">
+    <div class="product-item__wrapper pure-g">
+        <div class="pure-u-5-12" style="padding-right:15px;">
+            <a href="{{ product.url | within: collection }}">
+                <img src="{{ product.featured_image.src | img_url: 'large' }}" alt="{{ product.featured_image.alt | escape }}" style="width:100%;height:auto;">
+            </a>
+        </div>
+        <div class="pure-u-7-12">
+            <h2 class="product-item__title" style="font-size: 14px;line-height: 1.1;text-align: left;margin-top:4px;margin-bottom:8px;">
+                <a href="{{ product.url | within: collection }}" style="text-align: left;">{{ product.title }}</a>
+            </h2>
+            <span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
+            <div class="product-item__price-list" style="text-align: left;font-size: 14px;">
+                {{ product.price | money }}
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,50 @@
+<div class="rich-text-block">
+    <div class="rich-text-block__wrapper">
+        <div class="pure-g RichText section-body" style="background: #000;padding: 36px 50px 36px;color: #FFF;">
+
+            {% for block in section.blocks limit: section.blocks.size %}
+            <div class="pure-u-1 pure-u-md-1-4 RichText__BlockWrapper">
+                <div class="RichText__Block">
+                    <img src="{{- block.settings.block_icon | img_url: '77x77' -}}" alt="{{- block.settings.block_icon.alt -}}">
+                    <h4>{{- block.settings.block_title -}}</h4>
+                    <div>
+                        {{- block.settings.block_html -}}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+
+{%- schema -%}
+    {
+        "name": "Rich Text Block",
+        "max_blocks": 4,
+
+        "blocks": [
+             {
+                "type": "text_block",
+                "name": "Text Block",
+                "settings": [
+                    {
+                    "type": "image_picker",
+                    "id": "block_icon",
+                    "label": "Block Icon"
+                    },
+                    {
+                    "type": "text",
+                    "id": "block_title",
+                    "label": "Block Title"
+                    },
+                    {
+                    "type": "html",
+                    "id": "block_html",
+                    "label": "Block Content"
+                    }
+                ]
+            }
+        ]
+    }
+{% endschema %}

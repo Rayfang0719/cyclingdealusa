@@ -1,0 +1,68 @@
+
+
+    <div class="container-indent" id="viewed-products">
+        <div class="container container-fluid-custom-mobile-padding lj-u-product-page-width" style="background-color:#efefef; ">
+
+            <div id="viewed-products-list" class="tt-product-listing">
+
+            </div>
+
+        </div>
+    </div>
+
+<script>
+    var items = JSON.parse(localStorage.getItem('recentlyViewedProducts') || '[]');
+
+    // We check if the current product already exists, and if it does not, we add it at the start
+    //if (!items.includes({{ product.id }})) {
+     //   items.unshift({{ product.id }});
+    //}
+
+    // Then, we save the current product into the local storage, by keeping only the 8 most recent
+    //try {
+    //    localStorage.setItem('recentlyViewedProducts', JSON.stringify(items.slice(0, 6)));
+    //} catch (error) {
+        // Do nothing, this may happen in Safari in incognito mode
+    //}
+
+    function getSearchQueryViewedProductString() {
+        var items = JSON.parse(localStorage.getItem('recentlyViewedProducts') || '[]');
+
+        // If we are on a product template, we make sure to remove the main product from the related product
+        //if (items.includes({{ product.id }})) {
+        //    items.splice(items.indexOf({{ product.id }}), 1);
+        //}
+
+        return items.map(function (item) {
+            return 'id:' + item;
+        }).join(' OR ');
+    }
+
+    function fetchProducts() {
+
+        var queryString = getSearchQueryViewedProductString();
+
+        if (queryString === '') {
+            return;
+        }
+
+        // If we have a non empty query string we do a search query
+        fetch('/search?view=recently-viewed-products&type=product&q=' + queryString, {
+            credentials: 'same-origin',
+            method: 'GET'
+        }).then(function (response) {
+            response.text().then(function (content) {
+                var viewedContentElement = document.getElementById("viewed-products-list");
+                viewedContentElement.innerHTML = content;
+               // $("#viewed-products-list img.lazyload").lazyload({effect: "fadeIn"});
+                //console.log(content);
+            });
+        });
+    }
+
+    window.onload=function(){
+        fetchProducts()
+
+    };
+
+</script>

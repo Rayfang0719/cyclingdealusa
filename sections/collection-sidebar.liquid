@@ -1,0 +1,64 @@
+<div class="collection-sidebar__wrapper">
+    {% assign hasSubCategory = false %}
+    {% for link in linklists.main-menu.links %}
+    {% assign child_title_handle2 = link.title | handleize %}
+    {% assign child_list_handle2 = link.object.handle | handleize %}
+    {% if linklists[child_title_handle2].links != blank and collection.handle == child_list_handle2 %}
+        {% assign hasSubCategory = true %}
+    {% endif %}
+    {% endfor %}
+
+    {% if hasSubCategory %}
+    <div class="sidebar-block">
+        <div class="sidebar-block__title">
+            Subcategories
+        </div>
+        {% include 'product-sidebar-categories' %}
+    </div>
+    {% endif %}
+
+
+    {% if template contains 'collection'  %}
+    <div class="sidebar-block">
+        <div class="sidebar-block__title">
+            Filter Products
+        </div>
+        {% include 'product-sidebar-filters' %}
+    </div>
+    {% endif %}
+
+    <div class="sidebar-block">
+        <div class="sidebar-block__title">
+            Browsing History
+        </div>
+        {% include 'product-recently-viewed' %}
+    </div>
+</div>
+
+{% schema %}
+    {
+        "name": "Collection Page Sidebar",
+        "class": "js-section__collection",
+        "max_blocks": 6,
+        "settings": [
+            {
+                "type": "paragraph",
+                "content": "Use content below to add filters."
+            }
+        ],
+        "blocks": [
+
+            {
+                "type": "group",
+                "name": "Tag groups",
+                "limit": 1,
+                "settings": [
+                    {
+                    "type": "paragraph",
+                    "content": "Filtering by tag groups requires tag formatting. "
+                    }
+                ]
+            }
+        ]
+    }
+{% endschema %}

@@ -1,0 +1,35 @@
+{
+  "name": "venus",
+  "version": "1.0.0",
+  "description": "Shopify Theme",
+  "main": "index.js",
+  "scripts": {
+    "gulp": "gulp",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/laojie9/venus-shopify.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/laojie9/venus-shopify/issues"
+  },
+  "homepage": "https://github.com/laojie9/venus-shopify#readme",
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "gulp": "^4.0.2",
+    "gulp-babel": "^7.0.1",
+    "gulp-clean-css": "^4.2.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-rename": "^1.4.0",
+    "gulp-sass": "^4.0.2",
+    "gulp-uglify": "^3.0.2"
+  },
+  "dependencies": {
+    "babel-plugin-transform-remove-strict-mode": "0.0.2",
+    "babel-preset-env": "^1.7.0",
+    "gulp-cli": "^2.2.0"
+  }
+}

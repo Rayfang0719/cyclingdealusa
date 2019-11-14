@@ -1,0 +1,46 @@
+<div class="featured-products">
+    <div class="featured-products__wrapper">
+        <div class="section-header">
+            <img src="https://www.cyclingdeal.com.au/assets/images/icon_products.png" alt="products"><span
+                    style="vertical-align: middle;">{{- section.settings.section_title -}}</span>
+        </div>
+        <div class="section-body pure-g">
+            {%- assign featuredCollection = collections[section.settings.product_collection] -%}
+            {% for product in featuredCollection.products limit:10 %}
+                {% include 'product-item' %}
+
+            {% endfor %}
+
+        </div>
+    </div>
+</div>
+
+{% schema %}
+    {
+        "name": "Featured Products",
+
+        "settings": [
+            {
+            "type": "header",
+            "content": "Featured Product"
+            },
+            {
+                "type": "text",
+                "id": "section_title",
+                "label": "Section Title",
+                "default": "CURATED PRODUCTS"
+            },
+            {
+                "type": "collection",
+                "id": "product_collection",
+                "label": "Choose a Collection"
+            }
+         ],
+        "presets": [
+            {
+            "name": "Featured Products",
+            "category": "Product"
+            }
+        ]
+    }
+{% endschema %}

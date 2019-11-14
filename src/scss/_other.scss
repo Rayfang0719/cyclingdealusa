@@ -1,0 +1,105 @@
+
+
+.header__body{
+  padding: 28px 20px;
+  background: #000;
+  color: #fff;
+}
+
+.newsletter__text{
+  padding-left:20px;
+  height: 64px;
+  line-height: 64px;
+  background: #F6F6F6;
+  font-size: 16px;
+  font-weight: 700;
+  color: #000;
+}
+
+@media (max-width: 47.999em) {
+  .newsletter__text{
+    font-size: 14px;
+    height: auto;
+    line-height: normal;
+    padding: 20px;
+  }
+}
+
+.Footer .Footer__Block ul{
+  list-style: none;
+  padding-left: 4px;
+}
+
+.RichText__BlockWrapper{
+  margin-bottom: 32px;
+}
+.RichText__Block{
+  position: relative;
+  border: 1px solid #4b4b4b;
+  height: 100%;
+  margin: 10px;
+  padding: 30px 10px 10px 12px;
+}
+
+.RichText__Block img{
+  position: absolute;
+  width: 52px;
+  height: 52px;
+  top: -30px;
+  left: 20px;
+}
+
+.breadcrumb ul{
+  list-style: none;
+}
+
+.breadcrumb li{
+  float:left;
+  display: block;
+}
+
+.breadcrumb a , .breadcrumb li {
+  color: #AAA;
+  font-style: italic;
+  font-size: 14px;
+}
+
+.breadcrumb  li + li:before  {
+  margin-left: 4px;
+  margin-right: 4px;
+}
+.breadcrumb  li + li:before {
+  content: "/";
+  padding: 0 5px;
+  color: #cccccc;
+}
+
+
+
+.icon-wrapper--clickable {
+  position: relative;
+  background: transparent;
+
+  /* This is used to increase the clickable area */
+  &::before {
+    position: absolute;
+    content: '';
+    top: -8px;
+    right: -12px;
+    left: -12px;
+    bottom: -8px;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0); /* Needed to avoid a glitch on iOS */
+  }
+}
+
+.icon {
+  display: inline-block;
+  height: 1em;
+  width: 1em;
+  fill: currentColor;
+  vertical-align: middle;
+  stroke-width: 1px;
+  background: none;
+  pointer-events: none;
+}

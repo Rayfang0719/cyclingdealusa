@@ -1,0 +1,54 @@
+<div class="brands">
+    <div class="brands__wrapper section-body pure-g" style="">
+
+
+            <ul class="pure-u-1" style="">
+                {% for block in section.blocks limit: section.blocks.size %}
+                <li>
+                    <a href="{{ block.settings.brand_item_url }}"><img src="{{ block.settings.brand_item | img_url : '160x22'}}" alt="{{ block.settings.brand_item.alt}}"></a>
+                </li>
+                {% endfor %}
+
+
+            </ul>
+            <div class="pure-u-1">
+                <a href="{{ section.settings.all_brand_item_url }}"  class="brands__all" style="float:right;">See All Brands</a>
+            </div>
+
+
+    </div>
+</div>
+
+
+
+{%- schema -%}
+    {
+        "name": "Brands",
+        "max_blocks": 15,
+        "settings": [
+            {
+                "type": "url",
+                "id": "all_brand_item_url",
+                "label": "All Brands Link"
+            }
+        ],
+        "blocks": [
+            {
+                "type": "brand_item",
+                "name": "Brand Item",
+                "settings": [
+                    {
+                    "type": "image_picker",
+                    "id": "brand_item",
+                    "label": "Brand Image"
+                    },
+                    {
+                    "type": "url",
+                    "id": "brand_item_url",
+                    "label": "Link"
+                    }
+                 ]
+            }
+        ]
+    }
+{% endschema %}

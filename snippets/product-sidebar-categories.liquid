@@ -1,0 +1,19 @@
+
+
+<div class="sidebar-category">
+    <ul class="pure-menu-list">
+
+
+    {% for link in linklists.main-menu.links %}
+        {% assign child_title_handle = link.title | handleize %}
+        {% assign child_list_handle = link.object.handle | handleize %}
+        {% if linklists[child_title_handle].links != blank and collection.handle == child_list_handle %}
+            {% for childlink in linklists[child_title_handle].links %}
+                <li class="pure-menu-item"><a href="{{ childlink.url }}" class="pure-menu-link">{{ childlink.title | escape }}</a></li>
+             {% endfor %}
+        {% endif %}
+    {% endfor %}
+
+
+    </ul>
+</div>

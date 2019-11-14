@@ -1,0 +1,9 @@
+development:
+  password: e6ca2267eabb67da0a50c73eb4e0d3b3
+  theme_id: "77282607236"
+  store: cyclingdealusa.myshopify.com
+  ignore_files:
+  - config/settings_data.json
+  - src/*
+  - node_modules/*
+  timeout: 2m0s

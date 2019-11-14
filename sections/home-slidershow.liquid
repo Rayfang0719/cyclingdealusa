@@ -1,0 +1,113 @@
+<style>
+    .slick-dots li button:before{
+        font-size: 10px;
+    }
+    @media (min-width: 48em) {
+        .slidershow .slick-dots li {
+            float: left;
+        }
+
+        .slidershow .slick-dots {
+            position: absolute;
+            left: 0;
+            top: 60px;
+            width: 60px;
+            bottom: 60px;
+            background-color: #000;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-evenly;
+        }
+
+        .slidershow .slick-track .slick-slide {
+            padding-left: 60px;
+        }
+
+        .slidershow .slick-prev {
+            left: 0;
+            top: 30px;
+            width: 60px;
+            height: 60px;
+            background-color: #F6B800;
+            z-index: 2;
+        }
+
+        .slidershow .slick-next {
+            left: 0;
+            bottom: -30px;
+            top: auto;
+            width: 60px;
+            height: 60px;
+            background-color: #F6B800;
+        }
+
+        .slidershow .slick-dots li button {
+            width: 60px;
+        }
+
+        .slidershow .slick-prev:before {
+            content: url("{{ 'up-arrow.png' | asset_url }}");
+        }
+
+        .slidershow .slick-next:before {
+            content: url("{{ 'down-arrow.png' | asset_url }}");
+        }
+
+        .slidershow .slick-dots li button:before {
+
+            width: 60px;
+            color: #fff;
+        }
+
+        .slidershow .slick-dots li {
+            width: 60px;
+            margin: 0;
+        }
+    }
+
+    @media (max-width: 47.999em) {
+        .slidershow .slick-track .slick-slide{
+            padding-left: 0;
+        }
+
+        .slidershow .slick-dots{
+            display: none!important;
+        }
+
+        .slick-dotted.slick-slider{
+            margin-bottom: 0;
+        }
+    }
+</style>
+<div class="slidershow pure-g">
+    {% for block in section.blocks limit: section.blocks.size %}
+    <div class="pure-u-1-1">
+        <a href="{{ block.settings.slick_item_url }}" ><img src="{{ block.settings.slick_item | img_url : '1280x496'}}" class="home-banner-item" style="width: 100%;height:auto;" alt="{{ block.settings.slick_item.alt}}"></a>
+    </div>
+    {% endfor %}
+</div>
+
+{%- schema -%}
+    {
+        "name": "Slider Show",
+        "max_blocks": 15,
+        "blocks": [
+            {
+                "type": "slider_item",
+                "name": "Slider Item",
+                "settings": [
+                    {
+                        "type": "image_picker",
+                        "id": "slick_item",
+                        "label": "Slider Image"
+                    },
+                    {
+                        "type": "url",
+                        "id": "slick_item_url",
+                        "label": "Link"
+                    }
+                ]
+            }
+        ]
+    }
+{% endschema %}

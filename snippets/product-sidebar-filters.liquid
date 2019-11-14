@@ -1,0 +1,57 @@
+<style>
+
+    .sidebar-filters  li a{
+        background: url({{- 'checkmark_thick_unchecked.png' | asset_url -}}) left center no-repeat;
+        padding-left:24px;
+        background-size:24px 24px;
+    }
+    .sidebar-filters  li.active a{
+        background: url({{- 'checkmark.png' | asset_url -}}) left center no-repeat;
+        background-size:28px 28px;
+        padding-left:26px;
+    }
+</style>
+<div class="sidebar-filters">
+    {% for block in section.blocks %}
+        {% if block.type == 'group' %}
+            {% if template contains 'collection' and collection.all_tags.size > 1 %}
+                <!-- A recursive loop to catch and filter out the different tag categories -->
+                {% assign c = 0 %}
+                {% for t in collection.all_tags %}
+                    {% capture cat %}{{ cat }}{% capture temp_cat %}{% if t contains '_' %}{% assign cat_grp = t | split: '_' %}{{ cat_grp.first }}{% endif %}{% endcapture %}{% unless cat contains temp_cat %}{% if t contains '_' %}{% assign new_cat_grp = t | split: '_' %}{{ new_cat_grp.first }}{% endif %}{% unless forloop.last %}+{% endunless %}{% assign c = c | plus: 1 %}{% endunless %}{% endcapture %}
+                {% endfor %}
+
+                <!-- create array of tag categories -->
+                {% assign cat_array = cat | split: '+' %}
+                <!-- loop through tag categories -->
+                {% for i in cat_array %}
+                    <!-- ignore if tag category is empty -->
+                    {% unless i == '' %}
+                        <div class="sidebar-filters__section sidebar-filters__section--tags sidebar-filters__section--group">
+                            <h4 class="sidebar-filters__title h5">{{ i }}</h4>
+                            <ul class="pure-menu-list">
+                                <!-- loop through collection tags -->
+                                {% for t in collection.all_tags %}
+                                    <!-- if tag contains the category title -->
+                                    {% if t contains i %}
+                                        <!-- strip out tag category prefix and add/remove link for tag filtering -->
+                                        {% if current_tags contains t %}
+                                            <li class="pure-menu-item active">
+                                                {{ t | remove: i | remove: '_' | link_to_remove_tag: t | replace: ' title', ' class="collection-sidebar__link" title' }}
+                                            </li>
+                                        {% else %}
+                                            <li class="pure-menu-item">
+                                                {{ t | remove: i | remove: '_' | link_to_add_tag: t | replace: ' title', ' class="collection-sidebar__link" title' }}
+                                            </li>
+                                        {% endif %}
+                                    {% endif %}
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    {% endunless %}
+                {% endfor %}
+
+            {% endif %}
+        {% endif %}
+    {% endfor %}
+</div>

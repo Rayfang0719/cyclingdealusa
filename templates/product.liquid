@@ -1,0 +1,155 @@
+<style>
+#productSelect{
+display: block;
+height: 45px;
+padding: 6px 16px;
+font-size: 14px;
+line-height: 1.428571429;
+color:
+#555;
+vertical-align: middle;
+background-color:
+#fff;
+background-image: none;
+border: 1px solid #ccc;
+overflow:auto;
+margin:10px;
+}
+.product-option{
+    padding:0px 6px;
+    display: block;
+    overflow:auto;
+    margin-top:50px;
+   
+}
+.main-image{
+    text-align:center;
+}
+.main-image img{
+    width:90%;
+}
+</style>
+{% assign current_variant = product.selected_or_first_available_variant %}
+{% assign featured_image = current_variant.featured_image | default: product.featured_image %}
+
+<div class="" style="padding:20px;">
+    <form action="/cart/add" method="post" enctype="multipart/form-data" id="AddToCartForm">
+
+    <div class="pure-g product-single" >
+        <div class="pure-u-1 pure-u-md-11-24 product-single__images">
+            <div class="main-image">
+                {% for image in product.images limit:1%}
+
+                        <img id="main-image" src="{{ image.src | img_url: 'master' }}" alt="{{ image.alt | escape }}">
+ 
+                {% endfor %}
+            </div>
+            <div class="thumbnail-image image-box" >
+                {% for image in product.images %}
+                    <span style="height: 64px;max-width:64px;display: inline-block;margin-right:5px;">
+                        <img src="{{ image.src | img_url: 'master' }}" alt="{{ image.alt | escape }}" style="max-width: 64px;height:100%;">
+                   </span>
+                   {% endfor %}
+
+            </div>
+
+        </div>
+        <div class="pure-u-1 pure-u-md-13-24 product-single__info">
+            <div class="pure-g ">
+                <div class="pure-u-1 pure-u-md-5-6 product-single__info">
+                    <h1 class="product-single__title">{{ product.title }}</h1>
+                    <div class="sku-num"> SKU:  {{ current_variant.sku }}</div>
+                    <span class="shopify-product-reviews-badge" data-id="{{ product.id }}" ></span>
+                       {% if product.has_only_default_variant %}
+                       <input name="id" value="{{ variant.id }}" type="hidden">
+                       {% else %}
+                            <p class="product-option">
+                                <strong>
+                                    {% for option in product.options %}
+                                        {{ option }}
+                                    {% endfor %}
+                                </strong>
+                            </p>
+                        <select name="id" id="productSelect" style="" class="pure-u-1 pure-u-md-3-5">
+                            {% for variant in product.variants %}
+                                {% if variant.available %}
+                                    <option value="{{ variant.id }}">
+                                        {{ variant.title }}
+                                    </option>
+                                {% else %}
+                                    <option disabled="disabled">
+                                        {{ variant.title }} - sold out
+                                    </option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+                    {% endif %}
+                </div>
+                <div class="pure-u-1 pure-u-md-1-6">
+                    <div class="product-single__price">
+                    {{ current_variant.price | money }}
+                    </div>
+                    <div class="label label-success">
+                        {% if current_variant.inventory_management == "shopify" and current_variant.inventory_policy != "continue" %}
+                            {% if current_variant.inventory_quantity <=0 %} 
+                            Out Of Stock
+                            {% elsif current_variant.inventory_quantity > 10 %}
+                               In Stocks: 10+
+                            {% else %}   In Stocks: 
+                                {{ current_variant.inventory_quantity }}
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="pure-u-1">
+                    <div class="pure-g cart-add-group" > 
+                        <div class="pure-u-1 pure-u-md-1-3" style="padding-left:16px;padding-right:16px;"> <input type="number" id="Quantity" style="height: 45px;text-align: center;font-size: 22px;width: 100%" name="quantity" value="1" min="1"></div>
+                       
+                   {% if current_variant.inventory_management == "shopify" and current_variant.inventory_policy != "continue" %}
+
+                            {% if current_variant.inventory_quantity <=0 %} 
+                <div class="pure-u-1 pure-u-md-1-3" style="padding-left:16px;padding-right:16px;">
+                            <button type="button" id="AddToCart" title="SOLD OUT" style="background:#A70A0A" ><i class="fa  icon-white"></i> Sold Out</button>
+                        </div>
+                            {% else %}
+                         <div class="pure-u-1 pure-u-md-1-3" style="padding-left:16px;padding-right:16px;">
+                            <button type="submit" id="AddToCart" title="Add to Cart" ><i class="fa fa-shopping-cart icon-white"></i> Add to Cart</button>
+                        </div>
+                      {% endif %}  
+                    {% endif %}    
+                        <div class="pure-u-1 pure-u-md-1-3" style="padding-left:16px;padding-right:16px;"><button type="button" id="enquire-btn" onclick="enquiry()">Enquire</button></div>
+                    </div>
+                </div>
+                <div class="pure-u-1">
+                    <div class="alert alert-warning alert-shipping"><i class="fa fa-truck"></i> Free Shipping USA Wide</div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</form>
+
+    <div style="margin-top: 40px;">
+        {% include 'product-tabs' %}
+    </div>
+</div>
+<script>
+var items = JSON.parse(localStorage.getItem('recentlyViewedProducts') || '[]');
+
+// We check if the current product already exists, and if it does not, we add it at the start
+if (!items.includes({{ product.id }})) {
+items.unshift({{ product.id }});
+}
+
+try {
+    localStorage.setItem('recentlyViewedProducts', JSON.stringify(items.slice(0, 6)));
+} catch (error) {
+    // Do nothing, this may happen in Safari in incognito mode
+}
+
+function enquiry(){
+    var subject = document.getElementsByClassName("product-single__title")[0].text;
+    console.log(subject);
+
+}
+</script>

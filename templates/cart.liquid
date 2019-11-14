@@ -1,0 +1,90 @@
+<style>
+.product-qty{
+  width:50px;
+  text-align:center;
+}
+td{
+  text-align:center;
+}
+.checkout-money{
+padding:30px;
+font-size:20px;
+height:120px;
+}
+.Grand-total{
+  float:right;
+  font-size:24px;
+
+}
+.Grand-total span{
+  font-weight:700;
+  color:#222222;
+}
+.update,.checkout{
+  margin-top:20px;
+  width:130px;
+  height:40px;
+  line-height:40px;
+  color:#fff;
+    
+  
+}
+.update{
+background:#F6B800;
+}
+.checkout{
+background:#47c1bf;
+}
+</style>
+{% if cart.item_count > 0 %}
+  <h1>cart</h1>
+  <form action="/cart" method="post" novalidate>
+    <table style="border: 1px solid #dddddd;width: 100%;">
+      <thead style="border: 1px solid #dddddd;">
+        <th>Item</th>
+        <th>Description</th>
+        <th>Qty</th>
+        <th>Price</th>
+        <th>Subtotal</th>
+      </thead>
+      <tbody>
+        {% for item in cart.items %}
+          <tr style="height:140px">
+            <td >
+              <a href="{{ item.url | within: collections.all }}">
+                <img src="{{ item | img_url: '100x100' }}" alt="{{ item.title | escape }}" style="width:100px">
+              </a>
+            </td>
+            <td>
+              <a href="{{ item.url }}">{{ item.product.title }}</a>
+            </td>
+
+            <td>
+              <input type="number" name="updates[]" id="updates_{{ item.key }}" value="{{ item.quantity }}" min="0" class="product-qty"><br/>
+              <a href="/cart/change?line={{ forloop.index }}&amp;quantity=0">remove</a>
+            </td>
+            <td>{{ item.price | money }}</td>
+            <td>
+              {% if item.original_line_price != item.line_price %}{{ item.original_line_price | money }}{% endif %}
+              {{ item.line_price | money }}
+              {% for discount in item.discounts %}{{ discount.title }}{% endfor %}
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <div class="checkout-money">
+      <div style="overflow:hidden;padding-right:10px;">
+      <p class="Grand-total"><span>sub total : </span>{{ cart.total_price | money }}</p>
+      </div>
+      <div style="float:right;">
+      <button type="submit" name="update" class="update">Update</button>
+      <button type="submit" name="checkout" class="checkout">Checkout</button>
+      
+      </div>
+    </div>
+  </form>
+{% else %}
+  <h2>cart</h2>
+  Cart is empty
+{% endif %}

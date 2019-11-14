@@ -1,0 +1,75 @@
+<style>
+    .Footer a{
+        color: #fff;
+        font-size: 12px;
+    }
+    .Footer h3{
+        font-size: 14px;
+        margin-bottom:10px;
+    }
+</style>
+
+<div class="pure-g Footer" style="background:#212121;overflow: hidden;padding:24px 50px;color:#fff;">
+    {% for block in section.blocks limit: section.blocks.size %}
+        {% if block.type == 'menu' %}
+        <div class="pure-u-1 pure-u-md-1-4 Footer__Block">
+            <h3>{{- block.settings.block_title -}}</h3>
+           <ul class="">
+               {% for link in linklists[block.settings.link_menu].links %}
+                   <li><a href="{{ link.url }}" class="">{{ link.title }}</a></li>
+               {% endfor %}
+
+           </ul>
+        </div>
+        {% endif %}
+
+        {% if block.type == 'social_link' %}
+        <div class="pure-u-1 pure-u-md-1-4 Footer__Block">
+            <h3>{{- block.settings.block_title -}}</h3>
+            {% include 'social-media' %}
+        </div>
+        {% endif %}
+    {% endfor %}
+</div>
+
+
+{%- schema -%}
+    {
+    "name": "Footer",
+    "max_blocks": 4,
+
+    "blocks": [
+        {
+        "type": "menu",
+        "name": "Menu",
+            "settings": [
+            {
+            "type": "link_list",
+            "id": "link_menu",
+            "label": "Block Menu"
+            },
+            {
+            "type": "text",
+            "id": "block_title",
+            "label": "Block Title"
+            }
+            ]
+        },
+        {
+        "type": "social_link",
+        "name": "Social Link",
+            "settings": [
+                {
+                "type": "text",
+                "id": "block_title",
+                "label": "Block Title"
+                },
+                {
+                "type": "paragraph",
+                "content": "Please go to Tabs General settings > Social media"
+                }
+            ]
+        }
+    ]
+    }
+{% endschema %}

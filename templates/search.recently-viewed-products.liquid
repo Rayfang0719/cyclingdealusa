@@ -1,0 +1,7 @@
+{% layout none %}
+
+ {%- for product in search.results limit: 6 -%}
+     <div class="tt-col-item" style="margin-top:0;">
+         {%- include 'product-item-horizontal' -%}
+     </div>
+ {%- endfor -%}

@@ -1,0 +1,29 @@
+<div class="pure-g">
+{% for collection in collections %}
+  {% unless collection.handle == 'frontpage' %}
+    <div class="pure-u-1-2 pure-u-md-1-5" style="margin-bottom: 20px;">
+
+    {% capture collection_title %}{{ collection.title | escape }}{% endcapture %}
+
+
+    {% for product in collection.products limit:1 %}
+      <div>
+          <a href="{{ collection.url  }}">
+              <img src="{{ product.featured_image.src | img_url: 'large' }}" alt="{{ product.featured_image.alt | escape }}" style="width: 100%;height:auto;">
+          </a>
+          <a href="{{ collection.url }}">{{ collection_title }}</a>
+          {% comment %}
+        <a href="{{ product.url | within: collection }}">{{ product.title }}</a>
+        {{ product.price | money }}
+        {% unless product.available %}<br><strong>sold out</strong>{% endunless %}
+        <a href="{{ product.url | within: collection }}">
+          <img src="{{ product.featured_image.src | img_url: 'large' }}" alt="{{ product.featured_image.alt | escape }}" style="width: 100%;height:auto;">
+        </a>
+          {% endcomment %}
+      </div>
+    {% endfor %}
+
+    </div>
+  {% endunless %}
+{% endfor %}
+</div>

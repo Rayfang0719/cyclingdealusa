@@ -1,0 +1,127 @@
+<style>
+  .horizontallist {
+    list-style: none;
+    margin: -6px -8px;
+  }
+
+  .horizontallist__item {
+    display: inline-block;
+    margin: 6px 8px 6px 8px;
+  }
+
+  .horizontallist__item > .link {
+    display: inline-block;
+  }
+
+
+</style>
+{%- assign social_media_count = 0 -%}
+
+{%- capture social_media -%}
+  {%- if settings.social_facebook != blank -%}
+    <li class="horizontallist__item">
+      <a href="{{ settings.social_facebook | replace_first: 'https://', '' | replace_first: 'http://', '' | prepend: 'https://' }}" class="link" target="_blank" rel="noopener" aria-label="Facebook">
+        <span class="icon-wrapper--clickable">{%- include 'icon' with 'facebook' -%}</span>
+      </a>
+    </li>
+
+    {% assign social_media_count = social_media_count | plus: 1 %}
+  {%- endif -%}
+
+  {%- if settings.social_twitter != blank -%}
+    <li class="horizontallist__item">
+      <a href="{{ settings.social_twitter | replace_first: 'https://', '' | replace_first: 'http://', '' | prepend: 'https://' }}" class="link" target="_blank" rel="noopener" aria-label="Twitter">
+        <span class="icon-wrapper--clickable">{%- include 'icon' with 'twitter' -%}</span>
+      </a>
+    </li>
+
+    {% assign social_media_count = social_media_count | plus: 1 %}
+  {%- endif -%}
+
+  {%- if settings.social_instagram != blank -%}
+    <li class="horizontallist__item">
+      <a href="{{ settings.social_instagram | replace_first: 'https://', '' | replace_first: 'http://', '' | prepend: 'https://' }}" class="link" target="_blank" rel="noopener" aria-label="Instagram">
+        <span class="icon-wrapper--clickable">{%- include 'icon' with 'instagram' -%}</span>
+      </a>
+    </li>
+
+    {% assign social_media_count = social_media_count | plus: 1 %}
+  {%- endif -%}
+
+  {%- if settings.social_pinterest != blank -%}
+    <li class="horizontallist__item">
+      <a href="{{ settings.social_pinterest | replace_first: 'https://', '' | replace_first: 'http://', '' | prepend: 'https://' }}" class="link" target="_blank" rel="noopener" aria-label="Pinterest">
+        <span class="icon-wrapper--clickable">{%- include 'icon' with 'pinterest' -%}</span>
+      </a>
+    </li>
+
+    {% assign social_media_count = social_media_count | plus: 1 %}
+  {%- endif -%}
+
+  {%- if settings.social_youtube != blank -%}
+    <li class="horizontallist__item">
+      <a href="{{ settings.social_youtube | replace_first: 'https://', '' | replace_first: 'http://', '' | prepend: 'https://' }}" class="link" target="_blank" rel="noopener" aria-label="YouTube">
+        <span class="Iicon-wrapper--clickable">{%- include 'icon' with 'youtube' -%}</span>
+      </a>
+    </li>
+
+    {% assign social_media_count = social_media_count | plus: 1 %}
+  {%- endif -%}
+
+  {%- if settings.social_vimeo != blank -%}
+    <li class="horizontallist__item">
+      <a href="{{ settings.social_vimeo | replace_first: 'https://', '' | replace_first: 'http://', '' | prepend: 'https://' }}" class="link" target="_blank" rel="noopener" aria-label="Vimeo">
+        <span class="icon-wrapper--clickable">{%- include 'icon' with 'vimeo' -%}</span>
+      </a>
+    </li>
+
+    {% assign social_media_count = social_media_count | plus: 1 %}
+  {%- endif -%}
+
+  {%- if settings.social_linkedin != blank -%}
+    <li class="horizontallist__item">
+      <a href="{{ settings.social_linkedin | replace_first: 'https://', '' | replace_first: 'http://', '' | prepend: 'https://' }}" class="link" target="_blank" rel="noopener" aria-label="LinkedIn">
+        <span class="icon-wrapper--clickable">{%- include 'icon' with 'linkedin' -%}</span>
+      </a>
+    </li>
+
+    {% assign social_media_count = social_media_count | plus: 1 %}
+  {%- endif -%}
+
+  {%- if settings.social_snapchat != blank -%}
+    <li class="horizontallist__item">
+      <a href="{{ settings.social_snapchat | replace_first: 'https://', '' | replace_first: 'http://', '' | prepend: 'https://' }}" class="link" target="_blank" rel="noopener" aria-label="SnapChat">
+        <span class="icon-wrapper--clickable">{%- include 'icon' with 'snapchat' -%}</span>
+      </a>
+    </li>
+
+    {% assign social_media_count = social_media_count | plus: 1 %}
+  {%- endif -%}
+
+  {%- if settings.social_tumblr != blank -%}
+    <li class="horizontallist__item">
+      <a href="{{ settings.social_tumblr | replace_first: 'https://', '' | replace_first: 'http://', '' | prepend: 'https://' }}" class="link" target="_blank" rel="noopener" aria-label="Tumblr">
+        <span class="icon-wrapper--clickable">{%- include 'icon' with 'tumblr' -%}</span>
+      </a>
+    </li>
+
+    {% assign social_media_count = social_media_count | plus: 1 %}
+  {%- endif -%}
+
+  {%- if settings.social_fancy != blank -%}
+    <li class="horizontallist__item">
+      <a href="{{ settings.social_fancy | replace_first: 'https://', '' | replace_first: 'http://', '' | prepend: 'https://' }}" class="link" target="_blank" rel="noopener" aria-label="Fancy">
+        <span class="icon-wrapper--clickable">{%- include 'icon' with 'fancy' -%}</span>
+      </a>
+    </li>
+
+    {% assign social_media_count = social_media_count | plus: 1 %}
+  {%- endif -%}
+{%- endcapture -%}
+
+
+{%- if social_media_count > 0 -%}
+  <ul class="{{ class }} horizontallist">
+    {{ social_media }}
+  </ul>
+{%- endif -%}

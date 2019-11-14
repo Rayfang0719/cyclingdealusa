@@ -1,0 +1,165 @@
+<style>
+    .button-yellow{
+        padding: 10px 16px;
+        font-size: 18px;
+        line-height: 1.33;
+        background: #f6b800;
+        border: 1px solid #f6b800;
+        color: #ffffff;
+        margin-bottom: 0;
+        font-weight: normal;
+        text-align: center;
+        vertical-align: middle;
+        cursor: pointer;
+        width: 100%;
+    }
+    @media (max-width: 47.999em) {
+        .venus-form-group{
+            padding:0!important;
+        }
+    }
+</style>
+<section class="section section--account account" style="padding:0 10px;">
+    <h1 class="section__title-text h2" style="padding-left:16px;color:#1e64aa;">My Account</h1>
+    <div class="pure-g">
+        <div class="account--login pure-u-1 pure-u-md-1-2" style="padding: 16px;">
+            <div style="background: #f5f5f5;padding:16px 20px;">
+                <div id="RecoverPasswordForm" style="display: none;">
+                    <div class="section__title section__title--center">
+                        <h2 class="section__title-text h3"  style="margin-bottom: 10px">Reset your password</h2>
+                    </div>
+
+                    {% form 'recover_customer_password' %}
+
+                        {{ form.errors | default_errors }}
+
+                        {% if form.posted_successfully? %}
+                            {% assign reset_success = true %}
+                        {% endif %}
+
+                        <label for="RecoverEmail" class="label--hidden">Email</label>
+                        <input type="email" style="margin-top:4px;margin-bottom:8px;" value="" name="email" id="RecoverEmail" autocorrect="off" autocapitalize="off">
+
+                        <p>We will send you an email to reset your password.</p>
+
+                        <div class="account__form-buttons" style="margin-top:12px;">
+                            <button name="submit" type="submit" class="button-yellow" style="display: inline-block;width:49%;"><i class="fa fa-backward"></i>Recover </button>
+                            <a href="#"  onclick="hideRecoverPasswordForm();return false;" class="button-yellow" style="display:inline-block;width:49%;background :#fff;color:#000;">Cancel</a>
+                        </div>
+
+                    {% endform %}
+                </div>
+
+
+                <div id="CustomerLoginForm">
+                    <div class="section__title section__title--center">
+                        <h2 class="section__title-text h3" style="margin-bottom: 10px">Returning Customer? Log In.</h2>
+                    </div>
+
+                    <div class="account__note success" id="ResetSuccess" style="display:none;">
+                        Recover password success!
+                    </div>
+
+                    {% form 'customer_login' %}
+
+                        {{ form.errors | default_errors }}
+                        <div class="pure-g">
+                            <div class="pure-u-1 pure-u-md-1-2 venus-form-group" style="padding-right:10px;">
+                                <label for="CustomerEmail" class="label--hidden">Email</label>
+                                <input style="display:block;margin-top:4px;margin-bottom:8px;" type="email" name="customer[email]" id="CustomerEmail"{% if form.errors contains "email" %} class="error"{% endif %} autocorrect="off" autocapitalize="off" autofocus>
+                            </div>
+                            {% if form.password_needed %}
+                                <div  class="pure-u-1 pure-u-md-1-2 venus-form-group" style="padding-left:10px;">
+                                    <label for="CustomerPassword" class="label--hidden">Password</label>
+                                    <input style="display:block;margin-top:4px;margin-bottom:8px;"  type="password" value="" name="customer[password]" id="CustomerPassword"{% if form.errors contains "password" %} class="error"{% endif %}>
+                                    <p class="account__reset-link">
+                                        <a href="#" onclick="showRecoverPasswordForm();return false;">Recover Password</a>
+                                    </p>
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="account__form-buttons" style="margin-top:12px;">
+
+                            <button name="submit" type="submit" class="button-yellow"><i class="fa fa-user"></i> Login Now</button>
+                        </div>
+                    {% endform %}
+                </div>
+
+                {% comment %}
+                    If accounts are set as optional, the following will be shown as an option
+                    during checkout, not on the default /login page.
+                {% endcomment %}
+                {% if shop.checkout.guest_login %}
+                    <div class="account__guest">
+                        <div class="section__title section__title--center">
+                            <h2 class="section__title-text h3">Continue as a guest</h2>
+                        </div>
+
+                        {% form 'guest_login' %}
+                            <div class="u-text-center">
+                                <input type="submit" class="c-btn c-btn--primary" value=Continue">
+                            </div>
+                        {% endform %}
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+        <div class="account--register  pure-u-1 pure-u-md-1-2"  style="padding: 16px;">
+            <div style="background: #f5f5f5;padding:16px 20px;">
+                <div class="account__form">
+                    <div class="section__title section__title--center">
+                        <h2 class="section__title-text h3"  style="margin-bottom: 10px">New Customer? Create an Account.</h2>
+                    </div>
+                    {% form 'create_customer' %}
+
+                        {{ form.errors | default_errors }}
+                        <div class="pure-g">
+                            <div class="pure-u-1 pure-u-md-1-2 venus-form-group" style="padding-right:10px;">
+                                <label for="FirstName" class="hidden-label">First Name</label>
+                                <input type="text" style="display:block;margin-top:4px;margin-bottom:8px;" name="customer[first_name]" id="FirstName" {% if form.first_name %}value="{{ form.first_name }}"{% endif %} autocapitalize="words" autofocus>
+                            </div>
+                            <div class="pure-u-1 pure-u-md-1-2 venus-form-group" style="padding-left:10px;">
+                                <label for="LastName" class="hidden-label">LastName</label>
+                                <input type="text" style="display:block;margin-top:4px;margin-bottom:8px;" name="customer[last_name]" id="LastName" {% if form.last_name %}value="{{ form.last_name }}"{% endif %} autocapitalize="words">
+                            </div>
+                        </div>
+                        <div class="pure-g">
+                            <div class="pure-u-1 pure-u-md-1-2 venus-form-group" style="padding-right:10px;">
+                                <label for="Email" class="hidden-label">Email</label>
+                                <input type="email" style="display:block;margin-top:4px;margin-bottom:8px;" name="customer[email]" id="Email" class="{% if form.errors contains 'email' %} error{% endif %}" {% if form.email %} value="{{ form.email }}"{% endif %} autocorrect="off" autocapitalize="off">
+                            </div>
+                            <div class="pure-u-1 pure-u-md-1-2 venus-form-group" style="padding-left:10px;">
+                                <label for="CreatePassword" class="hidden-label">Password</label>
+                                <input type="password" style="display:block;margin-top:4px;margin-bottom:8px;" name="customer[password]" id="CreatePassword" class="{% if form.errors contains 'password' %} error{% endif %}">
+                            </div>
+                        </div>
+
+
+                        <div class="account__form-buttons" style="margin-top:12px;">
+                            <button name="submit" type="submit" class="button-yellow"><i class="fa fa-plus"></i> Register and Continue</button>
+                        </div>
+
+                    {% endform %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    //Show/hide the recover password form when requested
+    function showRecoverPasswordForm() {
+        document.getElementById('RecoverPasswordForm').style.display = 'block';
+        document.getElementById('CustomerLoginForm').style.display='none';
+    }
+    function hideRecoverPasswordForm() {
+        document.getElementById('RecoverPasswordForm').style.display = 'none';
+        document.getElementById('CustomerLoginForm').style.display = 'block';
+    }
+
+    if (window.location.hash == '#recover') { showRecoverPasswordForm() }
+
+    {% if reset_success %}
+    document.getElementById('ResetSuccess').style.display = 'block';
+    {% endif %}
+</script>
