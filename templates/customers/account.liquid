@@ -1,4 +1,30 @@
 <!-- /templates/customers/account.liquid -->
+<style>
+.o-layout th{
+    width: 200px;
+}
+.o-layout td{
+    width: 200px;
+    text-align:center;
+    padding:10px 0;
+}
+.o-layout .h3{
+    padding:10px;
+}
+.address-detail{
+    font-size:18px;
+    line-height:30px;
+    padding-left:40px;
+    
+}
+.address-list{
+    padding:40px;
+    font-size:18px;
+}
+.section__title-desc{
+    padding:20px;
+}
+</style>
 <section class="section section--account account account--main">
     <div class="container container--tiny">
         <div class="section__title section__title--center section__title--desc">
@@ -8,8 +34,8 @@
     </div>
 
     <div class="container">
-        <div class="o-layout">
-            <div class="o-layout__item u-1/1 u-2/3@tab">
+        <div class="o-layout" >
+            <div class="o-layout__item u-1/1 u-2/3@tab" style="padding-bottom:20px;">
 
                 <h2 class="h3">{{ 'customer.orders.title' | t }}</h2>
 
@@ -59,9 +85,9 @@
 
                 <h2 class="h3">{{ 'customer.account.details' | t }}</h2>
 
-                {{ customer.default_address | format_address }}
+                <h4 class="address-detail">{{ customer.default_address | format_address }}</h4>
 
-                <p>
+                <p class="address-list">
                     <a href="/account/addresses" class="c-btn c-btn--light">{{ 'customer.account.view_addresses' | t }} ({{ customer.addresses_count }})</a>
                 </p>
 

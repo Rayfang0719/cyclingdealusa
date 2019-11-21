@@ -1,4 +1,19 @@
 <style>
+.main-image{
+    width:100%;
+    height:400px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    background-image:url(https:{{ product | img_url: '2048x2048' }});
+    background-position: center center ;
+    background-repeat:no-repeat;
+    background-size:contain;
+}
+.detail{
+    width:100%;
+    height:600px;
+}
 #productSelect{
 display: block;
 height: 45px;
@@ -28,6 +43,32 @@ margin:10px;
 .main-image img{
     width:90%;
 }
+.product-single__price{
+    font-size: 30px;
+    font-weight: 700;
+    margin-top: -10px;
+    line-height: 70px;
+    color: #333;
+}
+.product-compare__price{
+    font-size: 18px;
+    text-decoration: line-through;
+    line-height: 20px;
+    color: #999;
+}
+.money-save{
+    font-size: 18px;
+    color:#a70a0a;
+}
+.thumbnail{
+    display:inline-block;
+    width:50px;
+    height:60px;
+    
+    background-position: center center ; 
+    background-repeat:no-repeat; 
+    background-size:contain;
+}
 </style>
 {% assign current_variant = product.selected_or_first_available_variant %}
 {% assign featured_image = current_variant.featured_image | default: product.featured_image %}
@@ -40,14 +81,14 @@ margin:10px;
             <div class="main-image">
                 {% for image in product.images limit:1%}
 
-                        <img id="main-image" src="{{ image.src | img_url: 'master' }}" alt="{{ image.alt | escape }}">
  
                 {% endfor %}
             </div>
             <div class="thumbnail-image image-box" >
                 {% for image in product.images %}
                     <span style="height: 64px;max-width:64px;display: inline-block;margin-right:5px;">
-                        <img src="{{ image.src | img_url: 'master' }}" alt="{{ image.alt | escape }}" style="max-width: 64px;height:100%;">
+                        <a class="thumbnail" style="background-image:url({{ image.src | img_url: 'master' }}); " alt="{{ image.alt | escape }}" >
+                        </a>
                    </span>
                    {% endfor %}
 
@@ -56,6 +97,7 @@ margin:10px;
         </div>
         <div class="pure-u-1 pure-u-md-13-24 product-single__info">
             <div class="pure-g ">
+            <div class="detail" style="display:none"></div>
                 <div class="pure-u-1 pure-u-md-5-6 product-single__info">
                     <h1 class="product-single__title">{{ product.title }}</h1>
                     <div class="sku-num"> SKU:  {{ current_variant.sku }}</div>
@@ -88,6 +130,12 @@ margin:10px;
                 <div class="pure-u-1 pure-u-md-1-6">
                     <div class="product-single__price">
                     {{ current_variant.price | money }}
+                    </div>
+                     <div class="product-compare__price">
+                    RRP:{{ current_variant.compare_at_price | money }}
+                    </div>
+                    <div class="money-save">
+                    save  <span>{{ current_variant.compare_at_price | minus: current_variant.price | money }}</span>
                     </div>
                     <div class="label label-success">
                         {% if current_variant.inventory_management == "shopify" and current_variant.inventory_policy != "continue" %}

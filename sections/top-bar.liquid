@@ -1,5 +1,5 @@
 <div class="top-bar">
-    <div class="top-bar__wrapper"><span class="top-bar__phone">{{- section.settings.phone_num -}}</span></div>
+    <div class="top-bar__wrapper"><span class="top-bar__phone"><img src="{{ 'icon_phone.jpg' | asset_url }}" style="width:30px;padding-right:10px" ><a style="color:#F6B800;" href="tel:5626999600">{{- section.settings.phone_num -}}</a></span></div>
 </div>
 
 {%- schema -%}
@@ -11,7 +11,7 @@
             "type": "text",
             "id": "phone_num",
             "label": "Phone Number",
-            "default": "(03) 9133 0989"
+            "default": "5626999600"
             }
         ]
     }

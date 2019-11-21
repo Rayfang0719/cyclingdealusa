@@ -1,3 +1,17 @@
+<style>
+.phone,.email,.address{
+   cursor:pointer;
+}
+.RichText__Block h4{
+    font-size:18px;
+    font-weight:600px;
+    padding-bottom:15px;
+}
+.RichText__Block a{
+    color:#fff;
+}
+</style>
+
 <div class="rich-text-block">
     <div class="rich-text-block__wrapper">
         <div class="pure-g RichText section-body" style="background: #000;padding: 36px 50px 36px;color: #FFF;">
@@ -7,9 +21,30 @@
                 <div class="RichText__Block">
                     <img src="{{- block.settings.block_icon | img_url: '77x77' -}}" alt="{{- block.settings.block_icon.alt -}}">
                     <h4>{{- block.settings.block_title -}}</h4>
-                    <div>
+                     {% if block.settings.block_title  == 'EMAIL US' %}
+                     <a  href="mailto:sales@cyclingdealusa.com" target="_blank">
+                    <div class="email">
                         {{- block.settings.block_html -}}
                     </div>
+                    </a>
+                    {% elsif block.settings.block_title  == 'CALL US' %}
+                    <a href="tel:5626999600">
+                    <div class="phone">
+                        {{- block.settings.block_html -}}
+                    </div>
+                    </a>
+                    {% elsif block.settings.block_title  == 'VISIT US' %}
+                     <a href="https://www.google.com/maps/dir//1733+W+2nd+St,+Pomona,+CA+91766,+USA/@34.056713,-117.784025,17z/data=!4m8!4m7!1m0!1m5!1m1!1s0x80c32dd504508943:0x48c2ebcd0f350f77!2m2!1d-117.781831!2d34.056713" target="_blank">
+                    <div class="address">
+                       {{- block.settings.block_html -}}
+                    </div>
+                    </a>
+
+                    {% else %}
+                     <div>
+                        {{- block.settings.block_html -}}
+                    </div>
+                    {% endif %}
                 </div>
             </div>
             {% endfor %}

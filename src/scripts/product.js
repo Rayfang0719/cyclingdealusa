@@ -32,22 +32,7 @@ $(document).ready(function(){
             content.show();
             return false;
         });
-        var n =$(".product-main-image").length;
-      
-        for(let i = 0; i<n;i++){
-            var imgWidth = $(".product-main-image")[i].naturalWidth;
-            var imgHeight = $(".product-main-image")[i].naturalHeight;
-            console.log("width and height", imgWidth, imgHeight);
-            if (imgHeight > imgWidth) {
-                $(".product-main-image")[i].css('height', "190px");
-                var adptWidth = 657 * imgWidth / imgHeight + "px";
-                $(".product-main-image")[i].css('width', adptWidth);
 
-
-            } else {
-                $(".product-main-image")[i].css('width', "100%");
-            }
-        }
     
     });
 

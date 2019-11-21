@@ -10,8 +10,45 @@
         background-size:28px 28px;
         padding-left:26px;
     }
+    .sidebar-filters li{
+        list-style:none;
+    }
+    .sidebar-filters li::before{
+        content: '\F096\0020';
+        font-family: FontAwesome;
+    }
+    .filter-remove::before{
+        content: '\F14A\0020';
+    }
 </style>
 <div class="sidebar-filters">
+<div class="clearfix filter">
+  
+  <select class="coll-filter">
+    <option value="">All</option>
+    {% for tag in collection.all_tags %}
+    {% if current_tags contains tag %}
+    <option value="{{ tag | handle }}" selected>{{ tag }}</option>
+    {% else %}
+    <option value="{{ tag | handle }}">{{ tag }}</option>
+    {% endif %}
+    {% endfor %}
+  </select>
+
+  <ul>
+    <li>All</li>
+    {% for tag in collection.all_tags %}
+    {% if current_tags contains tag %}
+    <li value="{{ tag | handle }}"  >{{ tag }}</li>
+    {% else %}
+    <li value="{{ tag | handle }}">{{ tag }}</li>
+    {% endif %}
+    {% endfor %}
+  
+  </ul>
+
+</div>
+{% comment %}
     {% for block in section.blocks %}
         {% if block.type == 'group' %}
             {% if template contains 'collection' and collection.all_tags.size > 1 %}
@@ -54,4 +91,5 @@
             {% endif %}
         {% endif %}
     {% endfor %}
+{% endcomment %}
 </div>
